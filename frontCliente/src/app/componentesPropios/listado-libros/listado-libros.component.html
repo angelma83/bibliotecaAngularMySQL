@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-md-4" *ngFor='let libro of libros'>
+    <div class="card text-center">
+      <h5 class="card-title">{{libro.titulo}}</h5>
+      <div class="card-body" >
+        <img [src]="libro.imagen" class="card-img-top" alt="..."> 
+        <p class="card-text">{{libro.autor}}</p>
+        <p class="card-text">{{libro.descripcion}}</p>
+      </div>
+    </div>
+  </div> 
+</div>
+

@@ -1,0 +1,92 @@
+<div class="row" *ngIf='mostrar else acceso'>
+<div class="center col-md-6">
+  <p class="color">Acceso a administración</p>
+  <form class="p-4 col-4"> 
+    <div class="form-group">
+      <input appPropia type="email" class="form-control" name="nombre" [(ngModel)]="user.nombre" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" name="passw"  [(ngModel)]="user.passw" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary" (click)='comprueboUser()'>Acceso a back</button>
+  </form>
+</div>
+</div>
+
+<ng-template #acceso>
+<div class="row">
+      <form class="p-4 col-4"> 
+      <div class="form-group">
+        <input appPropia type="text" class="form-control" name="titulo" [(ngModel)]="libro.titulo" placeholder="Introduzca el titulo del libro">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="categoria" [(ngModel)]="libro.categoria" placeholder="Introduzca sección o categoria del libro">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="autor" [(ngModel)]="libro.autor" placeholder="Introduzca el autor">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="imagen" [(ngModel)]="libro.imagen" placeholder="Incluya el link de la imagen">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="descripcion" [(ngModel)]="libro.descripcion" placeholder="Introduzca descripcion del libro">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="guardarLibro()">Guarda libro</button>
+    </form>
+    <div class="col-8 p-4">
+      <button type="text" class="btn btn-primary float-right" (click)='salgoBack()'>Salir de administración</button>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4" *ngFor='let libro of libros'>
+    <div class="card text-center">
+      <h5 class="card-title">{{libro.titulo}}</h5>
+      <button class="button btn-danger col-2" (click)='borrarLibro(libro.id)'>Delete</button>
+      <div class="card-body" >
+        <img [src]="libro.imagen" class="card-img-top"> 
+        <p class="card-text">{{libro.autor}}</p>
+        <p class="card-text">{{libro.descripcion}}</p>
+        <button class="btn btn-info" (click)="cargoValoresLibro(libro)" data-toggle="modal" data-target="#exampleModal">Actualizar</button>
+      </div>
+    </div>
+  </div> 
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Actualiza producto </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- también se podría hacer (ngSubmit)="actualizaLibro()" en etiqueta form, pero debo incluir boton de data-dismiss-->
+        <form>       
+          <div class="p-2">Titulo   
+          <input type="text" [(ngModel)]="modificoLibro.titulo" name="titulo">
+          </div>
+          <div class="p-2">Autor
+          <input type="text" [(ngModel)]="modificoLibro.autor" name="autor">
+          </div>
+          <div class="p-2">Descripción
+          <input type="text" [(ngModel)]="modificoLibro.descripcion" name="descripcion">
+          </div>
+          <div class="p-2">Categoria
+          <input type="text" [(ngModel)]="modificoLibro.categoria" name="categoria">
+          </div>
+          <div class="p-2">Imagen
+          <input type="text" [(ngModel)]="modificoLibro.imagen" name="imagen">
+          </div>
+          <button type="submit" class="btn btn-primary" aria-label="Close" data-dismiss="modal" (click)="actualizaLibro()">Actualiza</button>  
+      </form>
+       </div>
+    </div>
+  </div>
+</div>
+
+</ng-template>
